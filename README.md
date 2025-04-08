@@ -250,5 +250,3 @@ Your answer should include:
 1. Fastest solver to get top  10% routes (number of moves)
 2. Finding a solution with no backtrack operations
 3. Least number of moves.
-
-
