@@ -3,7 +3,6 @@ Maze module containing the Maze class for generating and managing the game maze.
 """
 
 import random
-import time
 
 
 class Maze:
@@ -11,13 +10,9 @@ class Maze:
         self.width = width
         self.height = height
         self.grid = [[1 for _ in range(width)] for _ in range(height)]
-        # Seed the random number generator with current time
-        random.seed(time.time())
+        # Don't seed the random number generator here to ensure different mazes each time
         self.generate_maze()
-        self.start_pos = (1, 1)
-        self.end_pos = (width-2, height-2)
-        self.grid[self.start_pos[1]][self.start_pos[0]] = 0
-        self.grid[self.end_pos[1]][self.end_pos[0]] = 0
+        self.set_start_end_positions()
 
     def generate_maze(self):
         """Generate a random maze using depth-first search algorithm."""
@@ -55,9 +50,42 @@ class Maze:
             else:
                 stack.pop()
 
-        # Set start and end positions
-        self.start_pos = (1, 1)
-        self.end_pos = (self.width-2, self.height-2)
+    def set_start_end_positions(self):
+        """Set start and end positions ensuring they are on white squares.
+        Start position will be on the topmost line with white cells,
+        and end position will be on the bottommost line with white cells."""
+        # Find all white squares (0s) in the maze
+        white_squares = []
+        for y in range(self.height):
+            for x in range(self.width):
+                if self.grid[y][x] == 0:
+                    white_squares.append((x, y))
+        
+        if not white_squares:
+            # If no white squares found, regenerate the maze
+            self.generate_maze()
+            self.set_start_end_positions()
+            return
+        
+        # Find topmost and bottommost lines with white cells
+        topmost_line = min(y for x, y in white_squares)
+        bottommost_line = max(y for x, y in white_squares)
+        
+        # Get white cells on topmost and bottommost lines
+        top_white_cells = [(x, y) for x, y in white_squares if y == topmost_line]
+        bottom_white_cells = [(x, y) for x, y in white_squares if y == bottommost_line]
+        
+        if not top_white_cells or not bottom_white_cells:
+            # If no white cells on top or bottom, regenerate the maze
+            self.generate_maze()
+            self.set_start_end_positions()
+            return
+        
+        # Choose random positions from top and bottom lines
+        self.start_pos = random.choice(top_white_cells)
+        self.end_pos = random.choice(bottom_white_cells)
+        
+        # Ensure start and end positions are not walls
         self.grid[self.start_pos[1]][self.start_pos[0]] = 0
         self.grid[self.end_pos[1]][self.end_pos[0]] = 0
 
