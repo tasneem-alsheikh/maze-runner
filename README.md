@@ -14,13 +14,36 @@ A simple maze exploration game built with Pygame where you can either manually n
    - Enter your VM's SSH connection details
    - Enter your credentials when prompted
 
+4. Install required VS Code extensions:
+   - Press `Ctrl+Shift+X` to open the Extensions view
+   - Search for and install "Python Extension Pack"
+   - Search for and install "Jupyter"
+   - These extensions will provide Python language support, debugging, and Jupyter notebook functionality
+
 ### 2. Project Setup
 
-1. Clone this repository to your VM
-2. Install the required dependencies:
+1. Create and activate a Conda environment:
 ```bash
+# Create a new conda environment with Python 3.12
+conda create -n maze-runner python=3.12
+
+# Activate the conda environment
+conda activate maze-runner
+```
+
+2. Install Jupyter and the required dependencies:
+```bash
+# Install Jupyter
+pip install jupyter
+
+# Install project dependencies
 pip install -r requirements.txt
 ```
+
+3. Open the project in Visual Studio Code and select the interpreter:
+   - Press `Ctrl+Shift+P` to open the command palette
+   - Type "Python: Select Interpreter"
+   - Choose the interpreter from the `maze-runner` environment
 
 ## Running the Game
 
@@ -69,6 +92,21 @@ python main.py --type static --auto --visualize
 # Run with custom maze dimensions
 python main.py --width 40 --height 40 --auto --visualize
 ```
+
+### Jupyter Notebook Visualization
+To run the maze visualization in Jupyter Notebook:
+
+1. Make sure you have activated your virtual environment and installed all dependencies
+2. Open the project in Visual Studio Code
+3. Select the correct Python interpreter:
+   - Press `Ctrl+Shift+P` to open the command palette
+   - Type "Python: Select Interpreter"
+   - Choose the interpreter from your created environment:
+     - If using venv: Select the interpreter from `venv/bin/python` (Linux/Mac) or `venv\Scripts\python.exe` (Windows)
+     - If using Conda: Select the interpreter from the `maze-runner` environment
+4. Open the `maze_visualization.ipynb` notebook in VS Code
+5. VS Code will automatically start a Jupyter server
+6. Run all cells to see the maze visualization in action
 
 Available arguments:
 - `--type`: Choose between "random" (default) or "static" maze generation
@@ -124,8 +162,10 @@ maze-runner/
 │   ├── maze.py
 │   ├── player.py
 │   ├── game.py
-│   └── explorer.py
+│   ├── explorer.py
+│   └── visualization.py
 ├── main.py
+├── maze_visualization.ipynb
 ├── requirements.txt
 └── README.md
 ```
@@ -143,6 +183,7 @@ maze-runner/
 - `player.py`: Manages player movement, collision detection, and rendering of the player character.
 - `game.py`: Core game implementation including the main game loop, event handling, and game state management.
 - `explorer.py`: Implements automated maze solving using the right-hand rule algorithm and visualization.
+- `visualization.py`: Contains functions for maze visualization.
 
 ## Game Features
 
@@ -163,6 +204,20 @@ The project is organized into several modules:
 - `player.py`: Player movement and rendering
 - `game.py`: Game implementation and main loop
 - `explorer.py`: Automated maze solving implementation and visualization
+- `visualization.py`: Functions for maze visualization
+
+## Getting Started with the Assignment
+
+Before attempting the questions below, please follow these steps:
+
+1. Open the `maze_visualization.ipynb` notebook in VS Code
+2. Run all cells in the notebook to:
+   - Understand how the maze is generated
+   - See how the explorer works
+   - Observe the visualization of the maze solving process
+   - Get familiar with the statistics and metrics
+
+This will help you better understand the system before attempting the questions.
 
 ## Student Questions
 
@@ -214,7 +269,6 @@ Analyze and compare the performance of different maze explorers on the static ma
      - Number of backtrack operations
 
 3. What do you notice regarding the performance of the explorers? Explain the results and the observations you made.
-
 
 ### Question 4 (20 points)
 Based on your analysis from Question 3, propose and implement enhancements to the maze explorer to overcome its limitations. Your solution should:
