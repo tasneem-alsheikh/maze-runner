@@ -247,7 +247,9 @@ Modify the main program to run multiple maze explorers simultaneously. This is b
 3. Display a summary of results showing which explorer performed best
 
 *Hints*:
-- To get full marks, use Celery and RabbitMQ to distribute the exploration tasks. If you don't use Celery, RabbitMQ and redis, you will still get marks but you will not get the full 30 points.
+- To get 20 points, use use multiprocessing.
+- To get 30 points, use MPI4Py on multiple machines.
+- Use Celery and RabbitMQ to distribute the exploration tasks. You will get full marks plus a bonus.
 - Implement a task queue system
 - Do not visualize the exploration, just run it in parallel
 - Store results for comparison
